@@ -10,19 +10,20 @@ function App() {
       .then(backData => {
         setAvaible(true);
         setData(backData);
-        console.log(data);
       })
       .catch((err) => {
-         setAvaible(false) 
-        })
+        setAvaible(false)
+      })
   }, [])
 
-  const addUser = (list)=> list.map((item, id)=> <p key={id}>{item.username}</p>)
+  // const addUser = (list)=> list.map((item, id)=> <p key={id}>{item.username}</p>)
 
   return (
-    <div className='App'>
-      {avaible ? addUser(data) : <p>SERVER IS DOWN....</p>}
-    </div>
+    <>
+      <div className='w-full h-screen flex flex-col items-center gap-5 p-20'>
+      <h1 className='text-4xl font-bold'>TODO LIST</h1>
+      </div>
+    </>
   )
 }
 
