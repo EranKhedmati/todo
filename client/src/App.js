@@ -1,30 +1,27 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
 function App() {
-  const [backendData, setbackendData] = useState([{}])
+  const [data, setData] = useState();
+  const [avaible, setAvaible] = useState(false);
 
-  useEffect(()=>{
-    fetch('/api')
+  useEffect(() => {
+    fetch('/api/users')
       .then(response => response.json())
-      .then(data => {
-        setbackendData(data);
-      }).catch(err => console.log(err));
+      .then(backData => {
+        setAvaible(true);
+        setData(backData);
+        console.log(data);
+      })
+      .catch((err) => {
+         setAvaible(false) 
+        })
   }, [])
 
+  const addUser = (list)=> list.map((item, id)=> <p key={id}>{item.username}</p>)
+
   return (
-    <div>
-      {(typeof backendData.users === "undefined") ? (
-        <p>Loading...</p>
-      ) : (
-        backendData.users.map((user,id)=>{
-          return <p key={id}>{user}</p>
-        })
-      )}
-      {backendData ? (
-        <p>{backendData.message}</p>
-      ): (
-        <p>did not recieved</p>
-      )}
+    <div className='App'>
+      {avaible ? addUser(data) : <p>SERVER IS DOWN....</p>}
     </div>
   )
 }
